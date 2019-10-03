@@ -1,0 +1,395 @@
+树的广度优先遍历
+public ArrayList<Integer> bfs(Node<Integer> root){
+        ArrayList<Integer> lists = new ArrayList<Integer>();
+        if(root == null){
+            return lists;
+        }
+        Queue<Node<Integer>> queue = new LinkedList<Node<Integer>>();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            Node<Integer> tree = queue.poll();
+            if(tree.getLchild() != null){
+                queue.offer(tree.getLchild());
+            }
+            if(tree.getRchild() != null){
+                queue.offer(tree.getRchild());
+            }
+            lists.add(tree.getData());
+        }
+        return lists;
+    }
+
+    public ArrayList<Integer> dfs(Node<Integer> root){
+        ArrayList<Integer> lists = new ArrayList<Integer>();
+        if(root == null){
+            return lists;
+        }
+        Stack<Node<Integer>> stack = new Stack<Node<Integer>>();
+        stack.push(root);
+        while(!stack.isEmpty()){
+            Node<Integer> tree = stack.pop();
+            if(tree.getRchild() != null){
+                stack.push(tree.getRchild());
+            }
+            if(tree.getLchild() != null){
+                stack.push(tree.getLchild());
+            }
+            lists.add(tree.getData());
+        }
+        return lists;
+    }
+
+找出最长连续序列长度
+public int longestConsecutive(int[] nums) {
+        Set<Integer> num_set = new HashSet<Integer>();
+        for (int num : nums) {
+            num_set.add(num);
+        }
+
+        int longestStreak = 0;
+
+        for (int num : num_set) {
+            if (!num_set.contains(num-1)) {
+                int currentNum = num;
+                int currentStreak = 1;
+
+                while (num_set.contains(currentNum+1)) {
+                    currentNum += 1;
+                    currentStreak += 1;
+                }
+
+                longestStreak = Math.max(longestStreak, currentStreak);
+            }
+        }
+
+        return longestStreak;
+    }
+
+进程间通讯
+手撕单例
+/**
+     * 懒汉式，线程不安全
+     * 不支持多线程
+     */
+    /*
+    private static Test_singleton instance;
+    private Test_singleton (){}
+
+    public static Test_singleton getInstance(){
+        if(instance == null){
+            instance = new Test_singleton();
+        }
+        return instance;
+    }
+    */
+
+    /**
+     * 懒汉式 线程安全 加了锁
+     * 支持多线程
+     * 第一次调用才初始化，避免内存浪费，缺点是加锁会影响效率
+     */
+    /*
+    private static Test_singleton instance;
+    private Test_singleton (){}
+
+    public static synchronized Test_singleton getInstance(){
+        if(instance == null){
+            instance = new Test_singleton();
+        }
+        return instance;
+    }
+    */
+
+    /**
+     * 饿汉式
+     * 线程安全，没有加锁，执行效率会提高，类加载时就初始化，浪费内存
+     /*
+    private static Test_singleton instance  = new Test_singleton();
+    private Test_singleton(){}
+    public static Test_singleton getInstance(){
+        return instance;
+    }
+    */
+
+    /**
+     * 双重校验锁
+     * 多线程情况下保持高性能
+     */
+    private static volatile Test_singleton instance;
+    private Test_singleton (){}
+
+    public static Test_singleton getInstance(){
+        if(instance == null)
+        synchronized(Test_singleton.class){
+            if(instance == null){
+                instance = new Test_singleton();
+            }
+        }
+        return instance;
+    }
+快排 归并
+什么情况用归并 什么情况用快排
+/**
+     * 递归实现快排
+     * @param arr
+     * @param l
+     * @param r
+     */
+    public void quickSort(Integer[] arr, int l, int r){
+        if(l < r){
+            Integer mid = partition(arr,l,r);
+            quickSort(arr,l,mid-1);
+            quickSort(arr,mid+1,r);
+        }
+    }
+
+    /**
+     * 非递归实现快排
+     * @param arr
+     * @param l
+     * @param r
+     */
+    public void quickSorts(Integer[] arr, int l, int r){
+        int index;
+        Stack<Integer> stack = new Stack<Integer>();
+        //先压left 再压right
+        stack.push(l);
+        stack.push(r);
+        while(!stack.empty()){
+            Integer high = stack.pop(); //先弹出right 再弹left
+            Integer low = stack.pop();
+            index = partition(arr,low,high);
+            if(low < index - 1){
+                stack.push(low);
+                stack.push(index - 1);
+            }
+            if(index +1 > high){
+                stack.push(index +1);
+                stack.push(high);
+            }
+        }
+    }
+
+    /**
+     * 一次划分算法
+     * @param arr 以arr[l]为支点进行划分
+     * @param l
+     * @param r
+     * @return 返回支点记录的最终位置
+     */
+    public Integer partition(Integer[] arr, int l, int r){
+        int tmp = arr[l];
+        while(l < r){
+            while (l < r && arr[r] >= tmp){
+                r--;
+            }
+            if(l < r){
+                arr[l] = arr[r];
+                l++;
+            }
+            while(l < r && arr[l] <= tmp){
+                l++;
+            }
+            if(l < r){
+                arr[r] = arr[l];
+                r--;
+            }
+        }
+        arr[l] = tmp;
+        return l;
+    }
+
+
+    /**
+         * 递归实现
+         * @param arr 待排序序列
+         * @param low 起始索引
+         * @param high 终止索引
+         * @param tmp 目标序列
+         */
+        public void mergeSorts(Integer[] arr, Integer low, Integer high, Integer[] tmp){
+            if(low < high){
+                Integer mid = (low + high) /2;
+                mergeSorts(arr, low, mid,tmp);
+                mergeSorts(arr, mid+1, high, tmp);
+                merge(arr,low,mid,high,tmp);
+            }
+        }
+
+        /**
+             * 两个有序序列的合并
+             * @param arr 待排序的序列
+             * @param low 左边序列起始索引
+             * @param mid 左边序列终止索引
+             * @param high 右边序列终止索引
+             * @param tmp 合并后的序列
+             */
+            public void merge(Integer[] arr, Integer low, Integer mid, Integer high, Integer[] tmp){
+                Integer t = low;//合并后序列 的起始索引
+                Integer i = low;//左边序列起始索引
+                Integer j = mid+1;//右边序列起始索引
+                while(i <= mid && j <= high){//往新序列中放，从小到大
+                    if(arr[i] < arr[j]){
+                        tmp[t++] = arr[i++];
+                    }else{
+                        tmp[t++] = arr[j++];
+                    }
+                }
+                //剩余数据放入序列中
+                while(i <= mid){
+                    tmp[t++] = arr[i++];
+                }
+                while (j <= high){
+                    tmp[t++] = arr[j++];
+                }
+            }
+
+
+一个结果表有classid、subjectId、studentId、score字段，查出每门课程的前三名的学生和班级
+
+select  subject_id,student_id,score
+
+from score sc1    
+
+where  (select count(1) from score sc2 where sc2.subject_id=sc1.subject_id and sc2.score >= sc1.score) <=3
+
+order by subject_id ,score desc;
+
+
+给你两个有序数组，求这两个数组的交集
+给你一个链表1->2->3->4…将链表变为奇数在前面，偶数在后面，并保持奇偶数有序
+8，手撕。数组重复元素相关。优化。
+4，手撕，10分钟写排序算法。
+7）快速排序算法
+
+5）手撕算法：合并两个有序链表
+public ListNode mergeTwoLists(ListNode l1, ListNode l2){
+        ListNode prehead = new ListNode(-1);
+        ListNode pre = prehead;
+        while(l1!=null && l2!=null){
+            if(l1.val > l2.val){
+                pre.next = l2;
+                pre = pre.next;
+            }else{
+                pre.next = l1;
+                pre = pre.next;
+            }
+        }
+        if(l1 != null){
+            pre.next = l1;
+        }
+        if(l2 != null){
+            pre.next = l2;
+        }
+        return  prehead.next;
+    }
+
+3）手撕算法：链表反转
+class ListNode {
+     int val;
+     ListNode next;
+     ListNode(int x) { val = x; }
+    }
+
+    public ListNode reverseList(ListNode head){
+        if(head == null || head.next == null)
+            return head;
+        ListNode node = head;
+        Stack<ListNode> stack = new Stack<ListNode>();
+        while(node.next != null){
+            stack.push(node);
+            node = node.next;
+        }
+        ListNode resultNode = node;
+        while(!stack.isEmpty()){
+            node.next = stack.pop();
+            node = node.next;
+        }
+        node.next = null;
+        return resultNode;
+    }
+字符串反转，白纸撕
+字符串
+
+白纸撕算法，找中位数
+
+dubbo 序列化  反序列化
+
+有一张学生成绩表student_score（studentID、subjectID、score），请找出2门及以上不及格学生
+select * from student_score where score<60 group by studentID having count(studentID)>=2
+
+网络爬虫： DNS 域名服务商拿到网址和IP      开始爬取内容（页面自己标记）      网页之间有链接         横向爬取（广泛）
+                   垂直爬取（针对性）人工分析
+是什么：收集网络上的信息；
+为什么：
+怎么样：
+
+爬取网站（将类似功能的网站爬下来）------接口文档 入参出参全部生成
+前后端谁先出接口文档---把握主动权
+
+抖音评论打不开原因——并发，
+
+CDN：存资源文件，CDN域名和IP   web服务器响应，校验    单个IP用户限点击频率和网速——防火墙限流等等都可以做
+
+长连接：看视频 传文件  断点续传：服务器端拆分成子文件， 客户端标记           迅雷文件下载：拆分成多个子文件同时开始 多线程  但有带宽限制
+短连接：
+
+聚簇索引：一个表一个聚簇索引   一个磁盘块中（文件形式存储）  索引+数据
+非聚簇索引：索引+数据地址
+联合索引： A B C 三个索引
+
+选课系统不卡顿：目前三个服务器 数据加载到内存当中  Redis进程间通信  本地缓存线程间通信
+                             登录 session 标记   缓存在本地缓存中   登录不上 并发量达不到  内存满了
+                             按钮点击速度
+                             服务器缓存抗住，限制在缓存中限制好，往另一台服务器数据库存的时候，每个人选中一门课添加到消息队列里去，主从，再同步
+                             Redis读写都是端口 读自己读 写只往一个地方写
+
+性能瓶颈：用缓存，缓存要考虑到断电怎么办，容灾，降级方案
+
+校园网   VPN 堡垒机 ip地址分配
+
+堆排序：
+/**
+     * 堆排序  初始化+排序
+     * @param list 二叉树元素
+     */
+    public void heapSort(Integer[] list){
+        Integer len = list.length;
+        //构造初始堆，从第一个非叶子结点开始调整，从下往上，节点较大的换到上边
+        for(int i = len/2-1; i >= 0; i--){
+            heapAdjust(list, len, i);
+        }
+        //排序，最大的节点放到堆尾，然后从根节点重新调整
+        for(int i = len-1; i > 1; i--){
+            Integer tmp = list[0];
+            list[0] = list[i];
+            list[i] = list[0];
+            heapAdjust(list,i,0);
+        }
+    }
+
+    /**
+     * 调整堆的过程
+     * @param list
+     * @param n 最后一个节点
+     * @param i 可能不满足堆特性的根节点
+     */
+    public void heapAdjust(Integer[] list, Integer n, Integer i){//在list当中，只有list[i]与左右子树可能不满足堆的特性，这里是大根堆    空间是到list[n]
+        Integer k = i;//根节点
+        Integer index =  2*k + 1; //根节点的左孩子节点
+        Integer tmp = list[k];//记录根节点
+        while(index < n){//左孩子小于n
+            if(index +1 < n){//如果有右孩子
+                if(list[index] < list[index +1 ]){//选择节点值大的孩子
+                    index = index +1;
+                }
+            }
+            if(list[index] > tmp){//如果孩子节点比自己大，向下调整
+                list[k] = list[index];
+                k = index;
+                index = 2*k + 1;
+            }else{
+                break;//已经满足堆特性 不用向下调整了
+            }
+        }
+    }
