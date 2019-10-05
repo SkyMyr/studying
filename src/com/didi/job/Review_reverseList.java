@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @ClassNameReview_reverseList
- * @Description TODO
+ * @Description 数组实现链表反转（包括链表的多种变形形式）
  * @Author myr
  * @Date 2019/10/1 14:46
  * @Version 1.0
