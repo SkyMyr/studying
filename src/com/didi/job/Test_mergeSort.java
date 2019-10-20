@@ -9,6 +9,9 @@ package com.didi.job;
  **/
 public class Test_mergeSort {
 
+    public static void main(String[] args) {
+        System.out.println('A');
+    }
 
     /**
      * 递归实现
