@@ -4,14 +4,14 @@ import java.util.*;
 
 /**
  * @ClacursNameTest_amazon
- * @Description 途家笔试
+ * @Description 途家旅行笔试题
  * @Author myr
  * @Date 2019/10/9 9:04
  * @Version 1.0
  **/
 public class Test_amazon {
 
-    //旅行
+    //旅行路线距离最小问题
     /*private static int n;
     private static int ans = Integer.MAX_VALUE;
     private static int[][] dp;
@@ -68,8 +68,9 @@ public class Test_amazon {
 
 
 
-    //逃离村庄
-    public static void main(String[] args) {
+    //守望者逃离
+    public static void escape()
+    {
         Scanner scanner = new Scanner(System.in);
         int m = scanner.nextInt();//法师初始值
         int s = scanner.nextInt();//距离S
