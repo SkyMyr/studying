@@ -15,7 +15,7 @@ public class Test_tanxin {
     /**
      * 钱币找零问题
      *
-     * @param money the money
+     * @param money the money需要找的钱
      */
     public static void greedyGiveMoney(int money) {
         System.out.println("需要找零: " + money);
