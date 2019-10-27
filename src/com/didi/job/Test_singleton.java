@@ -57,7 +57,8 @@ public class Test_singleton {
      * 双重校验锁
      * 多线程情况下保持高性能
      */
-    private static volatile Test_singleton instance;
+
+    /*private static volatile Test_singleton instance;
     private Test_singleton (){}
 
     public static Test_singleton getInstance(){
@@ -65,6 +66,19 @@ public class Test_singleton {
         synchronized(Test_singleton.class){
             if(instance == null){
                 instance = new Test_singleton();
+            }
+        }
+        return instance;
+    }*/
+    private static volatile Test_singleton instance;
+    private Test_singleton(){}
+    public static Test_singleton getInstance()
+    {
+        if(instance == null){
+            synchronized (Test_singleton.class){
+                if(instance == null){
+                    instance = new Test_singleton();
+                }
             }
         }
         return instance;
