@@ -32,6 +32,7 @@ public class Test_heapSort {
 
     /**
      * 调整堆的过程
+     * 注意理解 = 的含义，这里交换的是值，如果每个结点是一个对象，处理的就是对象的引用
      * @param list
      * @param n 最后一个节点
      * @param i 可能不满足堆特性的根节点
@@ -51,6 +52,7 @@ public class Test_heapSort {
                 k = index;
                 index = 2*k + 1;
             }else{
+                list[k] = tmp;
                 break;//已经满足堆特性 不用向下调整了
             }
         }

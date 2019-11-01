@@ -9,9 +9,14 @@ import com.auto.annotation.AutoAnnotation;
  * @Date 2019/10/30 11:16
  * @Version 1.0
  **/
-public class TestAnnotation {
+public class TestAnnotation  implements Cloneable{
     @AutoAnnotation.FieldAnnotation("域属性")
     private String myName;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
     @AutoAnnotation.ConstructorAnnotation("构造方法")
     public TestAnnotation(String myName) {
