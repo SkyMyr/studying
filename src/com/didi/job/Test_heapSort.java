@@ -57,4 +57,26 @@ public class Test_heapSort {
             }
         }
     }
+
+    //再刷堆排序
+    public void heapSort(Integer[] list,Integer n,Integer i){
+        Integer k = i;
+        Integer index = 2*k + 1;
+        Integer tmp = list[i];
+        while (index < n){
+            if(index+1 < n){
+                if(list[index]<list[index+1]){
+                    index = index + 1;
+                }
+            }
+            if(list[index]>tmp){
+                list[k] = list[index];
+                k = index;
+                index = 2*k + 1;
+            }else {
+                list[k] = tmp;
+                break;
+            }
+        }
+    }
 }
