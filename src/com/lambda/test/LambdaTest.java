@@ -22,9 +22,9 @@ public class LambdaTest {
         System.out.println();
         Arrays.sort(planets,(first,second) -> first.length() - second.length());
         System.out.println(Arrays.toString(planets));
-        Timer t = new Timer(1000, event ->
-                System.out.println(new Date()));
-        t.start();
+//        Timer t = new Timer(1000, event ->
+//                System.out.println(new Date()));
+//        t.start();
         JOptionPane.showMessageDialog(null,"Quit program?");
         System.exit(0);
     }
