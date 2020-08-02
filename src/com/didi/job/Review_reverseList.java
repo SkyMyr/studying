@@ -67,6 +67,19 @@ public class Review_reverseList {
         return pre.next;
     }
 
+    //递归法
+    public static ListNode reverseList13(ListNode head){
+
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode  next = head.next;
+        ListNode tmp = reverseList(next);
+        next.next = head;
+        next = null;
+        return tmp;
+    }
+
     /**
      * 输入: 1->2->3->4->5->1
      * @param head
@@ -124,5 +137,18 @@ public class Review_reverseList {
             result = result.next;
         }
         System.out.println();
+
+        //递归法
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        node1.next = node2;
+        node2.next = node3;
+        while (node1 != null){
+            System.out.println(node1.val);
+            node1 = node1.next;
+        }
+        ListNode result1 = reverseList13(node1);
+        System.out.println(result1.val);
     }
 }
