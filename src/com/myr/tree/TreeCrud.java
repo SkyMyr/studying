@@ -146,5 +146,8 @@ public class TreeCrud {
     /**
      * 修改，就是先删除，然后再添加节点
      */
+    public void editNode(Node<Integer> editNode){
+
+    }
 
 }
