@@ -33,5 +33,48 @@ public class DateUtils {
 
 
 
+
+
     }
+    /**
+     * LocalDateTime, LocalDate, Instant, Long 相互转换
+     */
+//
+//    public void  transform() {
+//        val localDateTime = LocalDateTime.now()
+//        // LocalDateTime to LocalDate
+//        println(localDateTime.toLocalDate())
+//        // LocalDateTime to Instant
+//        println(localDateTime.toInstant(ZoneOffset.UTC))
+////        LocalDateTime to Long
+//        println(localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli())
+//
+//
+//        val localDate = LocalDate.now()
+//        // LocalDate to LocalDateTime
+//        println(localDate.atTime(LocalTime.now()))
+////        LocalDate to Instant
+//        println(localDate.atTime(LocalTime.now()).toInstant(ZoneOffset.UTC))
+////        LocalDate to Long
+//        println(localDate.atTime(LocalTime.now()).toInstant(ZoneOffset.UTC).toEpochMilli())
+//
+//
+//        val instant = Instant.now()
+////        Instant to LocalDateTime
+//        println(LocalDateTime.ofInstant(instant, ZoneId.systemDefault()))
+////        Instant to LocalDate
+//        println(LocalDate.ofInstant(instant, ZoneId.systemDefault()))
+////        Instant to Long
+//        println(instant.toEpochMilli())
+//
+//
+//        val milli: Long = Instant.now().toEpochMilli()
+////        Long to LocalDateTime
+//        println(LocalDateTime.ofInstant(Instant.ofEpochMilli(milli), ZoneId.systemDefault()))
+////        Long to LocalDate
+//        println(LocalDate.ofInstant(Instant.ofEpochMilli(milli), ZoneId.systemDefault()))
+////        Long to Instant
+//        println(Instant.ofEpochMilli(milli))
+//    }
+
 }
