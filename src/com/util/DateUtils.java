@@ -2,10 +2,11 @@ package com.util;
 
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DateUtils {
     public static void main(String[] args) {
@@ -29,12 +30,11 @@ public class DateUtils {
         format = format+"T00:00:00";
         System.out.println(LocalDateTime.parse(format));
         System.out.printf(format);
-        System.out.printf(LocalDateTime.parse("2018-01-12T17:07:05").toString());
+        System.out.println(LocalDateTime.parse("2018-01-12T17:07:05").toString());
 
-
-
-
-
+        String str =  "2018-01-12";
+        //System.out.println(LocalDateTime.parse(str,DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        System.out.println(LocalDate.now().toString().replaceAll("-",""));
     }
     /**
      * LocalDateTime, LocalDate, Instant, Long 相互转换
