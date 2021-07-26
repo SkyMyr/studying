@@ -45,6 +45,7 @@ public class Test_singleton {
     /**
      * 饿汉式
      * 线程安全，没有加锁，执行效率会提高，类加载时就初始化，浪费内存
+     */
      /*
     private static Test_singleton instance  = new Test_singleton();
     private Test_singleton(){}
